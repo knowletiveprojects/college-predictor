@@ -31,8 +31,17 @@ SessionLocal = sessionmaker(
 )
 
 
+
 def check_database_connection():
-    with engine.connect() as connection:
-        return connection.execute(
-            text("SELECT current_database()")
-        ).scalar_one()
+    try:
+        with engine.connect() as connection:
+            return connection.execute(
+                text("SELECT current_database()")
+            ).scalar_one()
+    except Exception as exc:
+        print(
+            f"Database connection error: "
+            f"{type(exc).__name__}: {exc}",
+            flush=True,
+        )
+        raise
