@@ -789,7 +789,6 @@ def ensure_prediction_history_table():
 
 
 class PredictionHistoryRequest(BaseModel):
-    student_id: int = Field(gt=0)
     student_percentile: float = Field(ge=0, le=100)
     category: str = Field(min_length=1, max_length=30)
     branch: str = Field(min_length=1, max_length=200)
@@ -799,8 +798,12 @@ class PredictionHistoryRequest(BaseModel):
 
 
 @app.post("/prediction-history", status_code=201)
-def save_student_prediction(payload: PredictionHistoryRequest):
-    """Save a student's prediction history for the admin dashboard."""
+def save_student_prediction(
+    payload: PredictionHistoryRequest,
+    authorization: str | None = Header(default=None, alias="Authorization"),
+):
+    """Save history for the account represented by the verified bearer token."""
+    student_id = get_authenticated_student_id(authorization)
     ensure_student_table()
     ensure_prediction_history_table()
 
@@ -808,10 +811,10 @@ def save_student_prediction(payload: PredictionHistoryRequest):
         with engine.begin() as connection:
             student = connection.execute(
                 text("SELECT id FROM student_users WHERE id = :student_id"),
-                {"student_id": payload.student_id},
+                {"student_id": student_id},
             ).first()
             if not student:
-                raise HTTPException(status_code=404, detail="Student account not found.")
+                raise HTTPException(status_code=401, detail="Student account not found. Please log in again.")
 
             saved = connection.execute(text("""
                 INSERT INTO student_prediction_history (
@@ -822,7 +825,7 @@ def save_student_prediction(payload: PredictionHistoryRequest):
                     :cap_round, :city, CAST(:predictions AS JSONB)
                 ) RETURNING id, created_at
             """), {
-                "student_id": payload.student_id,
+                "student_id": student_id,
                 "student_percentile": payload.student_percentile,
                 "category": payload.category.strip().upper(),
                 "branch": payload.branch.strip(),
@@ -841,6 +844,38 @@ def save_student_prediction(payload: PredictionHistoryRequest):
         raise
     except SQLAlchemyError:
         raise HTTPException(status_code=503, detail="Could not save prediction history.")
+
+
+@app.get("/prediction-history")
+def get_student_prediction_history(
+    authorization: str | None = Header(default=None, alias="Authorization"),
+    limit: int = Query(default=50, ge=1, le=200),
+):
+    """Return only the authenticated student's prediction history."""
+    student_id = get_authenticated_student_id(authorization)
+    ensure_student_table()
+    ensure_prediction_history_table()
+    try:
+        with engine.connect() as connection:
+            rows = connection.execute(text("""
+                SELECT id, student_percentile, category, branch, cap_round,
+                       city, predictions, created_at
+                FROM student_prediction_history
+                WHERE student_id = :student_id
+                ORDER BY created_at DESC, id DESC
+                LIMIT :limit
+            """), {"student_id": student_id, "limit": limit}).mappings().all()
+        history = []
+        for row in rows:
+            item = dict(row)
+            if item.get("student_percentile") is not None:
+                item["student_percentile"] = float(item["student_percentile"])
+            if isinstance(item.get("created_at"), datetime):
+                item["created_at"] = item["created_at"].isoformat()
+            history.append(item)
+        return {"status": "success", "history": history, "count": len(history)}
+    except SQLAlchemyError:
+        raise HTTPException(status_code=503, detail="Could not load prediction history.")
 class SaveCollegeCollectionRequest(BaseModel):
 
     student_percentile: float = Field(ge=0, le=100)
@@ -1801,6 +1836,8 @@ def search_cutoffs(
 
     cap_round: int | None = Query(default=None, ge=1, le=4),
 
+    academic_year: str = Query(default="2025", pattern=r"^(2025|2026)$"),
+
     limit: int = Query(default=20, ge=1, le=100),
 
     offset: int = Query(default=0, ge=0),
@@ -1903,6 +1940,8 @@ def search_cutoffs(
 
                 )
 
+                AND cc.academic_year = :academic_year
+
             ORDER BY
 
                 cv.percentile DESC NULLS LAST,
@@ -1928,6 +1967,8 @@ def search_cutoffs(
                     "category_code": category_code,
 
                     "cap_round": cap_round,
+
+                    "academic_year": academic_year,
 
                     "limit": limit,
 
@@ -1981,6 +2022,8 @@ def predict_colleges(
 
     cap_round: int = Query(ge=1, le=4),
 
+    academic_year: str = Query(default="2025", pattern=r"^(2025|2026)$"),
+
     limit: int = Query(default=50, ge=1, le=50),
 
     city: str | None = Query(default=None),
@@ -2005,9 +2048,9 @@ def predict_colleges(
 
         # Dynamic relevance window. Example: percentile 50 -> cutoff range 10-70.
 
-        cutoff_min = max(0.0, percentile - 40.0)
-
-        cutoff_max = min(100.0, percentile + 20.0)
+        # New logic: show colleges within ±10 percentile points
+        cutoff_min = max(0.0, percentile - 10.0)
+        cutoff_max = min(100.0, percentile + 10.0)
 
         sql = text(f"""
 
@@ -2059,6 +2102,8 @@ def predict_colleges(
 
               AND cc.cap_round = :cap_round
 
+              AND cc.academic_year = :academic_year
+
               AND cv.percentile IS NOT NULL
 
               AND (
@@ -2086,6 +2131,8 @@ def predict_colleges(
                     "category": normalized_category,
 
                     "cap_round": cap_round,
+
+                    "academic_year": academic_year,
 
                     "city_pattern": f"%{city.strip()}%" if city and city.strip() else None,
 
@@ -2193,6 +2240,8 @@ def predict_colleges(
 
             "cap_round": cap_round,
 
+            "academic_year": academic_year,
+
             "cutoff_range": {
 
                 "minimum_percentile": round(cutoff_min, 2),
@@ -2207,7 +2256,7 @@ def predict_colleges(
 
             "notice": (
 
-                "Preliminary labels are based on 2025 historical cutoffs and a relevance window. "
+                f"Preliminary labels are based on {academic_year} historical cutoffs and a relevance window. "
 
                 "They are not admission guarantees or statistically validated probabilities."
 
