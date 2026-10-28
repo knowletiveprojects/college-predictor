@@ -927,10 +927,10 @@ export default function AdminDashboardPage() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="student-drawer-title"
-            className="cp-slide h-full w-full max-w-3xl overflow-y-auto bg-[#f4f7fc] shadow-2xl"
+            className="cp-slide flex h-full w-full max-w-3xl flex-col overflow-hidden bg-[#f4f7fc] shadow-2xl"
           >
             {/* Drawer header */}
-            <div className="relative overflow-hidden bg-gradient-to-br from-[#102b5b] via-blue-800 to-indigo-700 px-5 pb-8 pt-5 text-white sm:px-8">
+            <div className="relative shrink-0 overflow-hidden bg-gradient-to-br from-[#102b5b] via-blue-800 to-indigo-700 px-5 pb-8 pt-5 text-white sm:px-8">
               <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full border-[28px] border-white/10" aria-hidden="true" />
               <div className="relative flex items-start justify-between gap-4">
                 <p className="text-xs font-bold uppercase tracking-[0.16em] text-blue-200">Student profile</p>
@@ -976,9 +976,9 @@ export default function AdminDashboardPage() {
               </div>
             </div>
 
-            <div className="space-y-6 p-5 sm:p-8">
+            <div className="min-h-0 flex-1 overflow-y-auto space-y-6 p-5 sm:p-8">
               {/* Mini stats */}
-              <div className="-mt-12 grid grid-cols-3 gap-3">
+              <div className="mt-0 grid grid-cols-1 gap-3 sm:grid-cols-3">
                 {[
                   { label: "Predictions", value: String(selected.prediction_count) },
                   { label: "Records", value: String(selectedHistory.length) },
