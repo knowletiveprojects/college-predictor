@@ -2402,14 +2402,15 @@ export default function Home() {
       )}
 
       {/* ------------------------------ Floating WhatsApp contact ------------------------------ */}
+      {/* Floating WhatsApp Button */}
       <a
         href="https://wa.me/919970600116?text=Hello%2C%20I%20need%20help%20with%20the%20College%20Predictor."
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with us on WhatsApp"
         title="Chat with us on WhatsApp"
-        className="fixed bottom-6 left-6 z-[100] flex h-12 w-12 items-center justify-center rounded-full bg-[#00C853] text-white shadow-lg transition-all duration-300 hover:scale-110 hover:bg-[#00b84a] hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-600 sm:bottom-8 sm:left-8"
-        />
+        className="fixed bottom-6 left-6 z-[100] flex h-12 w-12 items-center justify-center rounded-full bg-[#00C853] text-white shadow-lg transition-all duration-300 hover:scale-110 hover:bg-[#00b84a] hover:shadow-xl sm:bottom-8 sm:left-8"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
