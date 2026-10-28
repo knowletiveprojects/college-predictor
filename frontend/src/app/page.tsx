@@ -623,12 +623,13 @@ function MultiSelect({
 /*  Small presentational pieces                                            */
 /* ====================================================================== */
 
+
 const NAV_LINKS: { href: string; label: string; icon: IconName }[] = [
   { href: "#predict", label: "Predict Colleges", icon: "target" },
-  { href: "#results", label: "Results", icon: "chart" },
   { href: "/universities", label: "Universities", icon: "building" },
   { href: "/student-guide", label: "Student Guide", icon: "book" },
 ];
+
 
 function NavLink({
   href,
