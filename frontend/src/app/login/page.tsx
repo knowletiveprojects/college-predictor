@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import Link from "next/link";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
-const REMEMBER_KEY = "collegePredictorRememberedEmail";
 
 type LoginResponse = {
   status?: string;
@@ -127,7 +126,6 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
   const [capsLockOn, setCapsLockOn] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -138,17 +136,6 @@ export default function LoginPage() {
   }>({});
 
   // Restore remembered email (never the password).
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(REMEMBER_KEY);
-      if (saved) {
-        setEmail(saved);
-        setRememberMe(true);
-      }
-    } catch {
-      /* storage may be unavailable (private mode) */
-    }
-  }, []);
 
   function clearFeedback() {
     setError("");
@@ -652,26 +639,6 @@ const css = `
 
 .lp-field-error { margin: 6px 0 0; font-size: 12px; color: var(--danger); }
 .lp-caps { margin: 6px 0 0; font-size: 12px; color: #9a6a00; }
-
-/* ---------- Remember / forgot ---------- */
-.lp-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 4px 0 20px; }
-.lp-check {
-  display: inline-flex; align-items: center; gap: 8px; position: relative;
-  font-size: 12.5px; color: #3b4a66; cursor: pointer; user-select: none;
-}
-.lp-check input { position: absolute; opacity: 0; width: 18px; height: 18px; margin: 0; cursor: pointer; }
-.lp-check-box {
-  width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid #bcc6d9;
-  display: grid; place-items: center; background: #fff; transition: all .15s ease;
-}
-.lp-check-box svg { width: 12px; height: 12px; stroke: #fff; stroke-width: 3; opacity: 0; }
-.lp-check input:checked + .lp-check-box { background: var(--blue); border-color: var(--blue); }
-.lp-check input:checked + .lp-check-box svg { opacity: 1; }
-.lp-check input:focus-visible + .lp-check-box { box-shadow: 0 0 0 4px rgba(58,91,255,.18); }
-
-.lp-link { font-size: 12.5px; font-weight: 600; color: var(--blue); text-decoration: none; }
-.lp-link:hover { text-decoration: underline; }
-.lp-link-strong { font-weight: 700; }
 
 /* ---------- Alerts ---------- */
 .lp-alert {
