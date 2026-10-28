@@ -1,5 +1,5 @@
 "use client";
-
+import CollegePredictorLogo from "@/components/CollegePredictorLogo";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 
@@ -1351,19 +1351,28 @@ export default function Home() {
       {/* ------------------------------ Navigation ------------------------------ */}
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 shadow-[0_4px_24px_rgba(15,23,42,0.04)] backdrop-blur-xl">
         <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-          <a href="#top" className="inline-flex shrink-0 items-center gap-2.5" aria-label="CollegePredictor home">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white shadow-md shadow-blue-700/25 transition-transform duration-300 hover:rotate-6 hover:scale-105">
-              <Icon name="cap" className="h-5 w-5" />
-            </span>
+          
+          <a
+            href="#top"
+            className="inline-flex shrink-0 items-center gap-3"
+            aria-label="CollegePredictor home"
+          >
+            <CollegePredictorLogo
+              size={56}
+              className="rounded-xl transition-transform duration-300 hover:scale-105"
+            />
+
             <span className="flex flex-col leading-none">
               <span className="text-lg font-black tracking-tight text-slate-950">
                 College<span className="text-blue-700">Predictor</span>
               </span>
+
               <span className="mt-1 hidden text-[10px] font-medium tracking-wide text-slate-500 xl:block">
                 Your College. Our Data. Your Future.
               </span>
             </span>
           </a>
+
 
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
             {NAV_LINKS.map((item) => (
