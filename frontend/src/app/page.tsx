@@ -2401,6 +2401,31 @@ export default function Home() {
         </button>
       )}
 
+      {/* Floating WhatsApp contact button */}
+      <a
+        href="https://wa.me/919970600116?text=Hello%2C%20I%20need%20help%20with%20the%20College%20Predictor."
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with us on WhatsApp at +91 99706 00116"
+        title="Chat with us on WhatsApp: +91 99706 00116"
+        className="cp-pop fixed bottom-6 left-5 z-40 inline-flex min-h-14 items-center gap-3 rounded-full bg-[#25D366] px-4 py-3 text-sm font-extrabold text-white shadow-xl shadow-green-900/25 transition hover:-translate-y-1 hover:bg-[#1ebe5d] focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:left-6"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          width="26"
+          height="26"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M20.52 3.48A11.85 11.85 0 0 0 12.08 0C5.5 0 .14 5.36.14 11.94c0 2.1.55 4.15 1.6 5.96L.05 24l6.26-1.64a11.9 11.9 0 0 0 5.76 1.47h.01c6.58 0 11.94-5.36 11.94-11.94a11.85 11.85 0 0 0-3.5-8.41ZM12.08 21.8a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.72.98.99-3.63-.24-.37a9.85 9.85 0 0 1-1.52-5.25c0-5.46 4.44-9.9 9.91-9.9a9.83 9.83 0 0 1 7 2.9 9.83 9.83 0 0 1 2.9 7c0 5.47-4.44 9.91-9.91 9.91Zm5.43-7.42c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.26-.47-2.4-1.5-.88-.78-1.48-1.75-1.65-2.05-.18-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.68-1.63-.93-2.23-.24-.58-.49-.5-.68-.51h-.58c-.2 0-.53.08-.8.38-.28.3-1.06 1.03-1.06 2.5 0 1.48 1.08 2.9 1.23 3.1.15.2 2.12 3.24 5.13 4.54.72.31 1.28.5 1.71.64.72.23 1.37.2 1.89.12.58-.09 1.77-.73 2.02-1.43.25-.7.25-1.3.18-1.43-.08-.12-.28-.2-.58-.35Z" />
+        </svg>
+        <span className="hidden sm:flex sm:flex-col sm:items-start sm:leading-tight">
+          <span>Chat on WhatsApp</span>
+          <span className="mt-0.5 text-[11px] font-semibold text-white/90">+91 99706 00116</span>
+        </span>
+      </a>
+
       {/* ------------------------------ Footer ------------------------------ */}
       <footer className="bg-[#0f1b36] text-slate-300">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr] lg:px-8">
