@@ -8,7 +8,7 @@ const API_URL =
   (process.env.NODE_ENV === "development"
     ? "http://127.0.0.1:8000"
     : "");
-    
+
 type SignupForm = {
   fullName: string;
   email: string;
@@ -228,7 +228,7 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/signup`, {
+      const response = await fetch(`${API_URL}/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
