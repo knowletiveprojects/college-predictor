@@ -126,7 +126,7 @@ export default function AboutPage() {
             className="flex items-center gap-1 sm:gap-2"
           >
             <Link
-              href="/#predict"
+              href="/predict"
               className="rounded-lg px-2 py-2 text-xs font-semibold text-slate-600 transition hover:bg-blue-50 hover:text-blue-700 sm:px-3 sm:text-sm"
             >
               Predict Colleges
