@@ -171,7 +171,7 @@ function Icon({ name, className = "h-5 w-5" }: { name: IconName; className?: str
 
 const NAV_LINKS: { href: string; label: string; icon: IconName }[] = [
   { href: "/predict", label: "Predict Colleges", icon: "target" },
-  { href: "/results", label: "Results", icon: "chart" },
+  { href: "/about", label: "About", icon: "info" },
   { href: "/universities", label: "Universities", icon: "building" },
   { href: "/student-guide", label: "Student Guide", icon: "book" },
 ];
