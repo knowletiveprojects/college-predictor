@@ -125,7 +125,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <footer className="border-t border-slate-200 bg-white"><div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-6 text-xs leading-5 text-slate-500 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8"><p>© {new Date().getFullYear()} CollegePredictor · Built to support informed college research.</p><p>Historical cutoffs are guidance, not admission guarantees.</p></div></footer>
+      <footer className="border-t border-slate-200 bg-white"><div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-6 text-xs leading-5 text-slate-500 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8"><p>© 2026 CollegePredictor · Built to support informed college research.</p><p>Historical cutoffs are guidance, not admission guarantees.</p></div></footer>
     </main>
   );
 }
