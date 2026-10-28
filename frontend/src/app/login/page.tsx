@@ -135,7 +135,6 @@ export default function LoginPage() {
     password?: string;
   }>({});
 
-  // Restore remembered email (never the password).
 
   function clearFeedback() {
     setError("");
@@ -206,12 +205,6 @@ export default function LoginPage() {
         })
       );
 
-      try {
-        if (rememberMe) localStorage.setItem(REMEMBER_KEY, normalizedEmail);
-        else localStorage.removeItem(REMEMBER_KEY);
-      } catch {
-        /* ignore */
-      }
 
       setMessage("Login successful! Redirecting...");
       window.location.assign("/predict");
@@ -393,27 +386,6 @@ export default function LoginPage() {
                 )}
               </div>
 
-              {/* Remember + forgot */}
-              <div className="lp-row">
-                <label className="lp-check">
-                  <input
-                    type="checkbox"
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
-                    disabled={loading}
-                  />
-                  <span className="lp-check-box" aria-hidden="true">
-                    <svg viewBox="0 0 24 24">
-                      <path d="m5 12.5 4.5 4.5L19 7.5" />
-                    </svg>
-                  </span>
-                  Remember me
-                </label>
-
-                <Link href="/forgot-password" className="lp-link">
-                  Forgot password?
-                </Link>
-              </div>
 
               {/* Feedback */}
               <div aria-live="polite">
