@@ -193,7 +193,7 @@ function CountUp({ value }: { value: number }) {
 /* ====================================================================== */
 
 const NAV_LINKS: { href: string; label: string }[] = [
-  { href: "/#predict", label: "Predict Colleges" },
+  { href: "/predict", label: "Predict Colleges" },
   { href: "/universities", label: "Universities" },
   { href: "/student-guide", label: "Student Guide" },
   { href: "/about", label: "About" },
