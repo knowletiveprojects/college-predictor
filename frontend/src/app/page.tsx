@@ -1450,7 +1450,7 @@ export default function Home() {
       {/* ------------------------------ Hero + form ------------------------------ */}
       <section
         id="top"
-        className="relative isolate scroll-mt-20 border-b border-blue-100/80"
+        className="relative isolate z-20 scroll-mt-20 border-b border-blue-100/80"
         style={{
           backgroundImage: "url('/images/college-campus-bg.png')",
           backgroundSize: "cover",
