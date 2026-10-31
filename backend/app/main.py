@@ -30,6 +30,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import check_database_connection, engine
 
+from app.routers.all_india import router as all_india_router
+
 app = FastAPI(
 
     title="College Predictor API",
@@ -39,6 +41,7 @@ app = FastAPI(
     version="1.0.0",
 
 )
+app.include_router(all_india_router)
 
 # Allow the local Next.js frontend to call this API.
 
