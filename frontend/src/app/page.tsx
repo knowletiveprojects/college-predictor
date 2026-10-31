@@ -626,7 +626,7 @@ function MultiSelect({
 
 const NAV_LINKS: { href: string; label: string; icon: IconName }[] = [
   { href: "#predict", label: "Predict Colleges", icon: "target" },
-  { href: "/all-india-predictor", label: "All India Predictor", icon: "globe" },
+  { href: "/all-india-predictor", label: "All India Predictor", icon="building" },
   { href: "/universities", label: "Universities", icon: "building" },
   { href: "/student-guide", label: "Student Guide", icon: "book" },
   { href: "/about", label: "About", icon: "info" },
