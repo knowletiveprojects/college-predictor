@@ -611,23 +611,24 @@ def reset_password(payload: ResetPasswordRequest):
 # master-data Place field is the source for each college's city/location.
 
 CITY_ALIASES = {
+    "OSMANABAD": "Osmanabad",
+    "DHARASHIV": "Dharashiv",
 
-    "OSMANABAD": "Dharashiv", "DHARASHIV": "Dharashiv",
+    "AHMEDNAGAR": "Ahmednagar",
+    "AHILYANAGAR": "Ahilyanagar",
 
-    "AHMEDNAGAR": "Ahilyanagar", "AHILYANAGAR": "Ahilyanagar",
-
-    "AURANGABAD": "Chhatrapati Sambhajinagar",
-
+    "AURANGABAD": "Aurangabad",
     "CHHATRAPATI SAMBHAJINAGAR": "Chhatrapati Sambhajinagar",
 
-    "BOMBAY": "Mumbai", "MUMBAI": "Mumbai",
+    "BOMBAY": "Mumbai",
+    "MUMBAI": "Mumbai",
 
-    "NAVI MUMBAI": "Navi Mumbai", "NEW MUMBAI": "Navi Mumbai",
+    "NAVI MUMBAI": "Navi Mumbai",
+    "NEW MUMBAI": "Navi Mumbai",
 
-    "PIMPRI CHINCHWAD": "Pimpri-Chinchwad", "PIMPRI-CHINCHWAD": "Pimpri-Chinchwad",
-
+    "PIMPRI CHINCHWAD": "Pimpri-Chinchwad",
+    "PIMPRI-CHINCHWAD": "Pimpri-Chinchwad",
 }
-
 # Common Maharashtra city/town names used to recognize a city inside a longer
 
 # address such as "(Bk) Off Sinhgad Road Pune" or "Andheri(W) Mumbai".
