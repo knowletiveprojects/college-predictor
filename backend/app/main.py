@@ -611,21 +611,26 @@ def reset_password(payload: ResetPasswordRequest):
 # master-data Place field is the source for each college's city/location.
 
 CITY_ALIASES = {
-    "OSMANABAD": "Osmanabad",
+    # Renamed Maharashtra cities – keep only new names
+    "OSMANABAD": "Dharashiv",
     "DHARASHIV": "Dharashiv",
 
-    "AHMEDNAGAR": "Ahmednagar",
+    "AHMEDNAGAR": "Ahilyanagar",
     "AHILYANAGAR": "Ahilyanagar",
 
-    "AURANGABAD": "Aurangabad",
+    "AURANGABAD": "Chhatrapati Sambhajinagar",
     "CHHATRAPATI SAMBHAJINAGAR": "Chhatrapati Sambhajinagar",
+    "CHHATRAPATISAMBHAJINAGAR": "Chhatrapati Sambhajinagar",
 
+    # Mumbai
     "BOMBAY": "Mumbai",
     "MUMBAI": "Mumbai",
 
+    # Navi Mumbai
     "NAVI MUMBAI": "Navi Mumbai",
     "NEW MUMBAI": "Navi Mumbai",
 
+    # Pimpri-Chinchwad
     "PIMPRI CHINCHWAD": "Pimpri-Chinchwad",
     "PIMPRI-CHINCHWAD": "Pimpri-Chinchwad",
 }
