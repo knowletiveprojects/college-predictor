@@ -2048,6 +2048,23 @@ def predict_colleges(
 
         normalized_branch = branch.strip()
 
+        # Map current official city names to legacy names used in some Place records.
+        # This keeps the dropdown on the new names while matching older college data.
+        CITY_SEARCH_ALIASES = {
+            "chhatrapati sambhajinagar": "aurangabad",
+            "dharashiv": "osmanabad",
+            "ahilyanagar": "ahmednagar",
+        }
+
+        selected_city = city.strip() if city and city.strip() else None
+        legacy_city = (
+            CITY_SEARCH_ALIASES.get(selected_city.casefold())
+            if selected_city
+            else None
+        )
+        city_pattern = f"%{selected_city}%" if selected_city else None
+        legacy_city_pattern = f"%{legacy_city}%" if legacy_city else None
+
         # Dynamic relevance window. Example: percentile 50 -> cutoff range 10-70.
 
         # New logic: show colleges within ±10 percentile points
@@ -2109,11 +2126,12 @@ def predict_colleges(
               AND cv.percentile IS NOT NULL
 
               AND (
-
                     CAST(:city_pattern AS TEXT) IS NULL
-
                     OR COALESCE(c.master_data ->> 'Place', '') ILIKE :city_pattern
-
+                    OR (
+                        CAST(:legacy_city_pattern AS TEXT) IS NOT NULL
+                        AND COALESCE(c.master_data ->> 'Place', '') ILIKE :legacy_city_pattern
+                    )
               )
 
             ORDER BY cv.percentile DESC, c.institute_name
@@ -2136,7 +2154,8 @@ def predict_colleges(
 
                     "academic_year": academic_year,
 
-                    "city_pattern": f"%{city.strip()}%" if city and city.strip() else None,
+                    "city_pattern": city_pattern,
+                    "legacy_city_pattern": legacy_city_pattern,
 
                 },
 
